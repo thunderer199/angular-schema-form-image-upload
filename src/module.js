@@ -1,13 +1,19 @@
 angular.module('imageUrl', [
   'schemaForm',
-  'templates'
-]).config(function(schemaFormDecoratorsProvider, sfBuilderProvider) {
+  'templates',
+  'ngFileUpload'
+]).config(function(schemaFormDecoratorsProvider) {
 
-  schemaFormDecoratorsProvider.defineAddOn(
+  schemaFormDecoratorsProvider.addMapping(
     'bootstrapDecorator',           // Name of the decorator you want to add to.
     'image-url',                      // Form type that should render this add-on
-    'src/templates/image-url.html',  // Template name in $templateCache
-    sfBuilderProvider.stdBuilders   // List of builder functions to apply.
+    'src/templates/image-url-plugin.html'  // Template name in $templateCache
+  );
+
+  schemaFormDecoratorsProvider.addMapping(
+    'bootstrapReportDecorator',           // Name of the decorator you want to add to.
+    'image-url',                      // Form type that should render this add-on
+    'src/templates/image-url-plugin.html' // Template name in $templateCache
   );
 
 });

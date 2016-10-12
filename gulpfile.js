@@ -6,6 +6,8 @@ var rename = require('gulp-rename');
 var templateCache = require('gulp-angular-templatecache');
 var streamqueue = require('streamqueue');
 var fs = require('fs');
+var proxy = require('http-proxy-middleware');
+
 
 gulp.task('default', ['minify', 'connect', 'watch']);
 
@@ -13,6 +15,13 @@ gulp.task('connect', function () {
   connect.server({
     root: ['demo', './'],
     livereload: true,
+    middleware: function (connect, opt) {
+      console.log(JSON.stringify(opt))
+      return [proxy('/ws', {
+        target: 'http://www.tomcat2.kvazar-micro.zp.ua/',
+        changeOrigin:true
+      })];
+    }
   });
 });
 

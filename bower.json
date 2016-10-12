@@ -23,8 +23,14 @@
     "src"
   ],
   "devDependencies": {
-    "angular-schema-form": "~0.8.13",
-    "angular-schema-form-bootstrap": "~0.2.0",
+    "angular-schema-form": "https://github.com/thunderer199/angular-schema-form.git#development",
+    "angular-schema-form-bootstrap": "https://github.com/thunderer199/angular-schema-form-bootstrap.git#develop",
     "bootstrap": "~3.3.7"
+  },
+  "resolutions": {
+    "angular-schema-form": "development"
+  },
+  "dependencies": {
+    "ng-file-upload": "^12.2.12"
   }
 }
