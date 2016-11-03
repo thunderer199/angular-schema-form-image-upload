@@ -1,51 +1,58 @@
 <div>
-  <input ng-show="form.key"
-         type="{{form.type}}"
-         step="any"
-         sf-changed="form"
-         placeholder="{{form.placeholder}}"
-         class="form-control {{form.fieldHtmlClass}}"
-         id="{{form.key.slice(-1)[0]}}"
-         ng-model-options="form.ngModelOptions"
-         ng-model="model"
-         ng-disabled="form.readonly"
-         schema-validate="form"
-         name="{{form.key.slice(-1)[0]}}"
-         aria-describedby="{{form.key.slice(-1)[0] + 'Status'}}">
+  <div ng-repeat="modelOne in model.images track by $index">
+    {{modelOne}}
+    <input ng-show="form.key"
+           type="{{form.type}}"
+           step="any"
+           sf-changed="form"
+           placeholder="{{form.placeholder}}"
+           class="form-control {{form.fieldHtmlClass}}"
+           id="{{form.key.slice(-1)[0]}}"
+           ng-model-options="form.ngModelOptions"
+           ng-model="modelOne.url"
+           ng-disabled="form.readonly"
+           name="{{form.key.slice(-1)[0]}}"
+           aria-describedby="{{form.key.slice(-1)[0] + 'Status'}}">
+    <div class="radio" ng-show="form.key">
+      <label><input type="radio" name="defaultImage" ng-model="model.default.index" ng-value="$index"/>Default image</label>
+    </div>
+    <button class="btn btn-primary" ng-click="removeModel($index)">Remove model</button>
+    <span class="input-group-btn">
+      <button class="btn btn-default" ng-if="hasSuccess() && form.feedback !== false" disabled="disabled">
+        <i class="glyphicon glyphicon-ok" style="color: #3c763d;"></i>
+      </button>
 
-  <span class="input-group-btn">
-    <button class="btn btn-default" ng-if="hasSuccess() && form.feedback !== false" disabled="disabled">
-      <i class="glyphicon glyphicon-ok" style="color: #3c763d;"></i>
+      <button ng-if="form.description" class="btn btn-default"
+              ng-click="tab.show_index = !tab.show_index ? $index : tab.show_index !== $index ? $index : null">
+        <i class="glyphicon glyphicon-question-sign"></i>
+      </button>
+    </span>
+
+
+    <input type="file" ngf-select ng-model="file" name="file" ngf-model-invalid="errorFile"
+           id="file-selector" accept="{{form.extensions}}" style="display: none; visibility: hidden;">
+    <button class="btn btn-default" ng-click="addImage()" ng-if="!modelOne.url || modelOne.url.length == 0">
+      <i class="glyphicon glyphicon-plus-sign"></i>&nbsp;<span>Add image</span>
     </button>
 
-    <button ng-if="form.description" class="btn btn-default"
-            ng-click="tab.show_index = !tab.show_index ? $index : tab.show_index !== $index ? $index : null">
-      <i class="glyphicon glyphicon-question-sign"></i>
-    </button>
-  </span>
+    <img class="img-thumbnail" ng-show="form.key" ng-src="{{modelOne.url}}" alt="" width="{{form.preview.width}}"
+         ng-if="modelOne.url && modelOne.url.length > 0"
+         height="{{form.preview.height}}">
 
+    <div class="progress" ng-if="isUploading">
+      <div class="progress-bar" role="progressbar" ng-style="{'width': uploadProgress + '%'}"
+           aria-valuenow="{{uploadProgress}}" aria-valuemin="0" aria-valuemax="100">
+        {{uploadProgress}}%
+      </div>
+    </div>
 
-  <input type="file" ngf-select ng-model="file" name="file" ngf-model-invalid="errorFile"
-         id="file-selector" accept="{{form.extensions}}" style="display: none; visibility: hidden;">
-  <button class="btn btn-default" ng-click="addImage()" ng-if="!model || model.length == 0">
-    <i class="glyphicon glyphicon-plus-sign"></i>&nbsp;<span>Add image</span>
-  </button>
-
-  <img class="img-thumbnail" ng-show="form.key" ng-src="{{model}}" alt="" width="{{form.preview.width}}"
-       ng-if="model && model.length > 0"
-       height="{{form.preview.height}}">
-
-  <div class="progress" ng-if="isUploading">
-    <div class="progress-bar" role="progressbar" ng-style="{'width': uploadProgress + '%'}"
-         aria-valuenow="{{uploadProgress}}" aria-valuemin="0" aria-valuemax="100">
-      {{uploadProgress}}%
+    <div ng-if="uploadError">
+      Errors:
+      <p>
+        File upload unsuccessful
+      </p>
     </div>
   </div>
 
-  <div ng-if="uploadError">
-    Errors:
-    <p>
-      File upload unsuccessful
-    </p>
-  </div>
+  <button class="btn btn-primary" ng-click="addModel()">Add model</button>
 </div>

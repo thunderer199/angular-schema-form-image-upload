@@ -1,7 +1,8 @@
 angular.module('imageUrl', [
   'schemaForm',
   'templates',
-  'ngFileUpload'
+  'ngFileUpload',
+  'ui.bootstrap'
 ]).config(function(schemaFormDecoratorsProvider) {
 
   schemaFormDecoratorsProvider.addMapping(

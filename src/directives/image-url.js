@@ -11,6 +11,8 @@ angular.module('imageUrl').service('imageLoader', function (Upload) {
 
 angular.module('imageUrl').controller('imageUrlCtrl', function ($scope, imageLoader) {
   $scope.addImage = addImage;
+  $scope.addModel = addModel;
+  $scope.removeModel = removeModel;
   $scope.$watch('file', uploadFile);
   $scope.isUploading = false;
   $scope.uploadError = false;
@@ -56,6 +58,24 @@ angular.module('imageUrl').controller('imageUrlCtrl', function ($scope, imageLoa
   function addImage() {
     $scope.$uploadImage.click();
   }
+
+  function addModel() {
+    if(!$scope.model.images) {
+      $scope.model.images = [];
+    }
+    $scope.model.images.push({url: ""});
+  }
+  function removeModel(index) {
+    $scope.model.images.splice(index, 1);
+    if($scope.model.default && $scope.model.default.index === index) {
+      $scope.model.default = null;
+    }
+  }
+  $scope.$watch('model.default.index', function() {
+    if($scope.model.default || $scope.model.default != null) {
+      $scope.model.default.url = $scope.model.images[$scope.model.default.index].url;
+    }
+  });
 });
 
 angular.module('imageUrl').directive('imageUrl', function () {
