@@ -1,6 +1,5 @@
 <div>
   <div ng-repeat="modelOne in model.images track by $index">
-    {{modelOne}}
     <input ng-show="form.key"
            type="{{form.type}}"
            step="any"
@@ -13,10 +12,18 @@
            ng-disabled="form.readonly"
            name="{{form.key.slice(-1)[0]}}"
            aria-describedby="{{form.key.slice(-1)[0] + 'Status'}}">
-    <div class="radio" ng-show="form.key">
+    <div class="radio pull-left" ng-show="form.key">
       <label><input type="radio" name="defaultImage" ng-model="model.default.index" ng-value="$index"/>Default image</label>
     </div>
-    <button class="btn btn-primary" ng-click="removeModel($index)">Remove model</button>
+    <button class="btn btn-primary pull-right" ng-click="removeModel($index)"
+            style="margin-left: 5px; margin-bottom: 5px;">Remove</button>
+    <button type="file" class="btn btn-default pull-right"
+            ngf-select="uploadFile($file, $errorFile, $index)"
+            accept="{{form.extensions}}"
+            ng-if="!modelOne.url || modelOne.url.length == 0">
+      <i class="glyphicon glyphicon-plus-sign"></i>&nbsp;<span>Add image</span>
+    </button>
+    <div class="clearfix"></div>
     <span class="input-group-btn">
       <button class="btn btn-default" ng-if="hasSuccess() && form.feedback !== false" disabled="disabled">
         <i class="glyphicon glyphicon-ok" style="color: #3c763d;"></i>
@@ -29,30 +36,26 @@
     </span>
 
 
-    <input type="file" ngf-select ng-model="file" name="file" ngf-model-invalid="errorFile"
-           id="file-selector" accept="{{form.extensions}}" style="display: none; visibility: hidden;">
-    <button class="btn btn-default" ng-click="addImage()" ng-if="!modelOne.url || modelOne.url.length == 0">
-      <i class="glyphicon glyphicon-plus-sign"></i>&nbsp;<span>Add image</span>
-    </button>
 
     <img class="img-thumbnail" ng-show="form.key" ng-src="{{modelOne.url}}" alt="" width="{{form.preview.width}}"
          ng-if="modelOne.url && modelOne.url.length > 0"
-         height="{{form.preview.height}}">
+         height="{{form.preview.height}}"/>
 
-    <div class="progress" ng-if="isUploading">
+    <div class="progress" ng-if="isUploading[$index]">
       <div class="progress-bar" role="progressbar" ng-style="{'width': uploadProgress + '%'}"
            aria-valuenow="{{uploadProgress}}" aria-valuemin="0" aria-valuemax="100">
         {{uploadProgress}}%
       </div>
     </div>
-
-    <div ng-if="uploadError">
-      Errors:
-      <p>
-        File upload unsuccessful
-      </p>
-    </div>
   </div>
 
   <button class="btn btn-primary" ng-click="addModel()">Add model</button>
+
+  <button type="file" class="btn btn-default"
+          ngf-select="uploadFile($files, $errorFiles, $index)" multiple
+          accept="{{form.extensions}}"
+          ng-if="!modelOne.url || modelOne.url.length == 0">
+    <i class="glyphicon glyphicon-plus-sign"></i>&nbsp;<span>Add Image's list</span>
+  </button>
+
 </div>
