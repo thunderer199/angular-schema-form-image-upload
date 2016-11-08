@@ -1,4 +1,4 @@
-angular.module('imageUrl').service('imageLoader', function (Upload) {
+angular.module('imageUrl').service('imageLoader', ['Upload', function (Upload) {
   return {
     uploadImage: function (url, file) {
       return Upload.upload({
@@ -7,7 +7,7 @@ angular.module('imageUrl').service('imageLoader', function (Upload) {
       })
     }
   }
-});
+}]);
 
 angular.module('imageUrl').controller('imageUrlCtrl', ['$scope', 'imageLoader', 'Notification',
       function ($scope, imageLoader, Notification) {

@@ -4,7 +4,7 @@ angular.module('imageUrl', [
   'ngFileUpload',
   'ui.bootstrap',
   'ui-notification'
-]).config(function(schemaFormDecoratorsProvider) {
+]).config(['schemaFormDecoratorsProvider', function(schemaFormDecoratorsProvider) {
 
   schemaFormDecoratorsProvider.addMapping(
     'bootstrapDecorator',           // Name of the decorator you want to add to.
@@ -18,4 +18,4 @@ angular.module('imageUrl', [
     'src/templates/image-url-plugin.html' // Template name in $templateCache
   );
 
-});
+}]);

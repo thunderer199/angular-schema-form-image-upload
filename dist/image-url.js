@@ -6,7 +6,7 @@ angular.module('imageUrl', [
   'ngFileUpload',
   'ui.bootstrap',
   'ui-notification'
-]).config(function(schemaFormDecoratorsProvider) {
+]).config(['schemaFormDecoratorsProvider', function(schemaFormDecoratorsProvider) {
 
   schemaFormDecoratorsProvider.addMapping(
     'bootstrapDecorator',           // Name of the decorator you want to add to.
@@ -20,9 +20,9 @@ angular.module('imageUrl', [
     'src/templates/image-url-plugin.html' // Template name in $templateCache
   );
 
-});
+}]);
 
-angular.module('imageUrl').service('imageLoader', function (Upload) {
+angular.module('imageUrl').service('imageLoader', ['Upload', function (Upload) {
   return {
     uploadImage: function (url, file) {
       return Upload.upload({
@@ -31,9 +31,10 @@ angular.module('imageUrl').service('imageLoader', function (Upload) {
       })
     }
   }
-});
+}]);
 
-angular.module('imageUrl').controller('imageUrlCtrl', function ($scope, imageLoader, Notification) {
+angular.module('imageUrl').controller('imageUrlCtrl', ['$scope', 'imageLoader', 'Notification',
+      function ($scope, imageLoader, Notification) {
   $scope.addImage = addImage;
   $scope.addModel = addModel;
   $scope.removeModel = removeModel;
@@ -120,7 +121,7 @@ angular.module('imageUrl').controller('imageUrlCtrl', function ($scope, imageLoa
       $scope.model.default.url = $scope.model.images[$scope.model.default.index].url;
     }
   });
-});
+}]);
 
 angular.module('imageUrl').directive('imageUrl', function () {
   return {
