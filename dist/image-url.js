@@ -42,6 +42,16 @@ angular.module('imageUrl').controller('imageUrlCtrl', function ($scope, imageLoa
   $scope.uploadFiles = uploadFiles;
   $scope.isUploading = [];
 
+  if(!$scope.model) {
+    $scope.model = {};
+  }
+  if(!$scope.model.images) {
+    $scope.model.images = [];
+  }
+  if(!$scope.model.default) {
+    $scope.model.default = {};
+  }
+
   function fieldByPath(obj, path) {
     var p = path.split('.');
     var res = obj;
@@ -106,7 +116,7 @@ angular.module('imageUrl').controller('imageUrlCtrl', function ($scope, imageLoa
     }
   }
   $scope.$watch('model.default.index', function() {
-    if($scope.model.default || $scope.model.default != null) {
+    if(!$.isEmptyObject($scope.model.default) && ($scope.model.default || $scope.model.default != null)) {
       $scope.model.default.url = $scope.model.images[$scope.model.default.index].url;
     }
   });
