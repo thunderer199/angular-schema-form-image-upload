@@ -60,7 +60,7 @@ angular.module('imageUrl').controller('imageUrlCtrl', ['$scope', 'imageLoader', 
         var path = $scope.form.uploadService.responsePath;
         var imageId = fieldByPath(resp.data, path);
         console.log(imageId);
-        $scope.model.images[index] = ($scope.form.baseImageUrl || '') + imageId;
+        $scope.model.images[index].url = ($scope.form.baseImageUrl || '') + imageId;
       }, function (resp) {
         Notification.error({title: 'Errors', message: 'File upload unsuccessful'});
         console.log(resp);
