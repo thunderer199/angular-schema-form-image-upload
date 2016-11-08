@@ -1,5 +1,5 @@
 <div>
-  <div ng-repeat="modelOne in model.images track by $index">
+  <div ng-if="model && model.images" ng-repeat="modelOne in model.images track by $index">
     <input ng-show="form.key"
            type="{{form.type}}"
            step="any"
