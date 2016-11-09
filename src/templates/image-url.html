@@ -52,7 +52,7 @@
   <button class="btn btn-primary" ng-click="addModel()">Add model</button>
 
   <button type="file" class="btn btn-default"
-          ngf-select="uploadFile($files, $errorFiles, $index)" multiple
+          ngf-select="uploadFiles($files, $errorFiles, $index)" multiple
           accept="{{form.extensions}}"
           ng-if="!modelOne.url || modelOne.url.length == 0">
     <i class="glyphicon glyphicon-plus-sign"></i>&nbsp;<span>Add Image's list</span>

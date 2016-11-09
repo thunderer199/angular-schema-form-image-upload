@@ -51,6 +51,7 @@ angular.module('imageUrl').controller('imageUrlCtrl', ['$scope', 'imageLoader', 
   }
 
   function uploadFile(file, errorFile, index) {
+
     if (!file || !$scope.form.uploadService) return;
 
     $scope.isUploading[index] = true;
