@@ -14,24 +14,30 @@
              ng-disabled="form.readonly"
              name="{{form.key.slice(-1)[0]}}"
              aria-describedby="{{form.key.slice(-1)[0] + 'Status'}}" />
-      <div class="input-group-btn">
+      <div class="input-group-btn" ng-if="!form.readonly">
         <button class="btn btn-default" data-toggle="tooltip" title="move up"
                 ng-click="moveElement($index, -1)" ng-disabled="$index === 0">
           <i class="glyphicon glyphicon-chevron-up"></i>
         </button>
-        <button class="btn btn-default" data-toggle="tooltip" title="move down"
-                ng-click="moveElement($index, 1)" ng-disabled="$index === model.images.length -1">
+        <button class="btn btn-default"
+                data-toggle="tooltip"
+                title="move down"
+                ng-click="moveElement($index, 1)"
+                ng-disabled="$index === model.images.length -1">
           <i class="glyphicon glyphicon-chevron-down"></i>
         </button>
         <button type="file" class="btn btn-primary"
-                data-toggle="tooltip" title="upload to server"
+                data-toggle="tooltip"
+                title="upload to server"
                 ngf-select="uploadFile($file, $errorFile, $index)"
                 accept="{{form.extensions}}"
-                ng-if="!(form.readonly && modelOne.url && modelOne.url.length === 0)">
+                ng-if="!(modelOne.url && modelOne.url.length === 0)">
           <i class="glyphicon glyphicon-upload"></i>
         </button>
-        <button class="btn btn-danger" ng-click="removeModel($index)" ng-if="!form.readonly"
-                data-toggle="tooltip" title="remove">
+        <button class="btn btn-danger"
+                ng-click="removeModel($index)"
+                data-toggle="tooltip"
+                title="remove">
           <i class="glyphicon glyphicon-trash"></i>
         </button>
       </div>
