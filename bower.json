@@ -33,6 +33,6 @@
   },
   "dependencies": {
     "ng-file-upload": "^12.2.12",
-    "angular-ui-notification": "~0.1.0"
+    "angular-ui-notification": "~0.3.6"
   }
 }

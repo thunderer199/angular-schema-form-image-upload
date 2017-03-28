@@ -17,6 +17,7 @@ angular.module('imageUrl').controller('imageUrlCtrl', ['$scope', 'imageLoader', 
   ///$scope.$watch('file', uploadFile);
   $scope.uploadFile = uploadFile;
   $scope.uploadFiles = uploadFiles;
+  $scope.moveElement = moveElement;
   $scope.isUploading = [];
 
   if(!$scope.model) {
@@ -93,6 +94,14 @@ angular.module('imageUrl').controller('imageUrlCtrl', ['$scope', 'imageLoader', 
       $scope.model.default = null;
     }
   }
+
+  // directionValue can be 0 or -1. Zero - because we will remove element in the function before acion.
+  function moveElement (index, direcitonValue) {
+    var tmpImage = $scope.model.images[index];
+    removeModel(index);
+    $scope.model.images.splice(index+direcitonValue, 0, tmpImage);
+  }
+
   $scope.$watch('model.default.index', function() {
     if(!$.isEmptyObject($scope.model.default) && ($scope.model.default || $scope.model.default != null)) {
       $scope.model.default.url = $scope.model.images[$scope.model.default.index].url;
