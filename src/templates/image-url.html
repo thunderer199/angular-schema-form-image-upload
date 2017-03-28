@@ -15,8 +15,10 @@
              name="{{form.key.slice(-1)[0]}}"
              aria-describedby="{{form.key.slice(-1)[0] + 'Status'}}" />
       <div class="input-group-btn" ng-if="!form.readonly">
-        <button class="btn btn-default" data-toggle="tooltip" title="move up"
-                ng-click="moveElement($index, -1)" ng-disabled="$index === 0">
+        <button class="btn btn-default" data-toggle="tooltip"
+                title="move up"
+                ng-click="moveElement($index, -1)"
+                ng-disabled="$index === 0">
           <i class="glyphicon glyphicon-chevron-up"></i>
         </button>
         <button class="btn btn-default"

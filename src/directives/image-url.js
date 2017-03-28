@@ -96,10 +96,26 @@ angular.module('imageUrl').controller('imageUrlCtrl', ['$scope', 'imageLoader', 
   }
 
   // directionValue can be 0 or -1. Zero - because we will remove element in the function before acion.
-  function moveElement (index, direcitonValue) {
+  function moveElement (index, directionValue) {
     var tmpImage = $scope.model.images[index];
-    removeModel(index);
-    $scope.model.images.splice(index+direcitonValue, 0, tmpImage);
+
+    if($scope.model.default) {
+      // var directionValueDef = directionValue === 0 ? 1 : -1;
+      switch ($scope.model.default.index) {
+        case index:
+          {
+            $scope.model.default.index = index+directionValue;
+          }
+          break;
+        case (index + directionValue):
+          {
+            $scope.model.default.index = index;
+          }
+          break;
+      }
+    }
+    $scope.model.images.splice(index, 1);
+    $scope.model.images.splice(index+directionValue, 0, tmpImage);
   }
 
   $scope.$watch('model.default.index', function() {
