@@ -61,9 +61,13 @@
 
 
 
-    <img class="img-thumbnail" ng-show="form.key" ng-src="{{modelOne.url}}" alt="" width="{{form.preview.width}}"
+    <img class="img-thumbnail"
+         ng-show="form.key"
+         ng-src="{{modelOne.url}}/{{form.preview.width}}" alt=""
+         width="{{form.preview.width}}"
+         height="{{form.preview.height}}"
          ng-if="modelOne.url && modelOne.url.length > 0"
-         height="{{form.preview.height}}"/>
+         ng-click="showImageFullSize(modelOne.url)"/>
 
     <div class="progress" ng-if="isUploading[$index]">
       <div class="progress-bar" role="progressbar" ng-style="{'width': uploadProgress + '%'}"

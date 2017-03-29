@@ -9,8 +9,8 @@ angular.module('imageUrl').service('imageLoader', ['Upload', function (Upload) {
   }
 }]);
 
-angular.module('imageUrl').controller('imageUrlCtrl', ['$scope', 'imageLoader', 'Notification',
-      function ($scope, imageLoader, Notification) {
+angular.module('imageUrl').controller('imageUrlCtrl', ['$scope', 'imageLoader', 'Notification', "$uibModal",
+      function ($scope, imageLoader, Notification, $uibModal) {
   $scope.addImage = addImage;
   $scope.addModel = addModel;
   $scope.removeModel = removeModel;
@@ -18,6 +18,7 @@ angular.module('imageUrl').controller('imageUrlCtrl', ['$scope', 'imageLoader', 
   $scope.uploadFile = uploadFile;
   $scope.uploadFiles = uploadFiles;
   $scope.moveElement = moveElement;
+  $scope.showImageFullSize = showImageFullSize;
   $scope.isUploading = [];
 
   if(!$scope.model) {
@@ -89,10 +90,37 @@ angular.module('imageUrl').controller('imageUrlCtrl', ['$scope', 'imageLoader', 
     return $scope.model.images.length - 1;
   }
   function removeModel(index) {
-    $scope.model.images.splice(index, 1);
-    if($scope.model.default && $scope.model.default.index === index) {
-      $scope.model.default = null;
-    }
+    var modalInstance = $uibModal.open({
+      templateUrl: "src/dialogs/confirm.html",
+      controller: "confirmCtrl",
+      resolve: {
+        options: {
+          title: "Remove element",
+          question: "Do you really want to remove image?"
+        }
+      }
+    });
+
+    modalInstance.result.then(function () {
+      $scope.model.images.splice(index, 1);
+      if($scope.model.default && $scope.model.default.index === index) {
+        $scope.model.default = null;
+      }
+    }, function () {
+
+    });
+  }
+  function showImageFullSize(url) {
+    var modalInstance = $uibModal.open({
+      templateUrl: "src/dialogs/show-img.html",
+      controller: "showImgFullSize",
+      resolve: {
+        options: {
+          title: "Image in full size",
+          url: url
+        }
+      }
+    });
   }
 
   // directionValue can be 0 or -1. Zero - because we will remove element in the function before acion.
