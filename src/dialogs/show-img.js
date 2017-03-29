@@ -7,4 +7,7 @@ angular.module('imageUrl')
     $scope.cancel = function() {
       $uibModalInstance.dismiss("cancel");
     };
+    $scope.download = function () {
+      window.open(url);
+    }
 }]);
