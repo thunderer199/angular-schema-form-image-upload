@@ -215,6 +215,6 @@ angular.module('imageUrl')
       $uibModalInstance.dismiss("cancel");
     };
     $scope.download = function () {
-      window.open(url);
+      window.open($scope.url);
     }
 }]);
