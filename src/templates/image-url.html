@@ -59,14 +59,15 @@
       </button>
     </span>
 
+
     <img class="img-thumbnail"
          ng-show="form.key"
-         ng-src="{{modelOne.url}}{{isLocalImgUrl() ? ('/' + form.preview.width): ''}}" alt=""
+         ng-src="{{isLocalImgUrl(modelOne.url) ? (modelOne.url + '/' + form.preview.width): modelOne.url}}" alt=""
          width="{{form.preview.width}}"
          height="{{form.preview.height}}"
          ng-if="modelOne.url && modelOne.url.length > 0"
          ng-click="showImageFullSize(modelOne.url)"/><br/>
-    <div ng-if="isLocalImgUrl()">
+    <div ng-if="isLocalImgUrl(modelOne.url)">
       <button class="btn btn-default" ng-click="turnElement(modelOne.url, -90)"><i class="fa fa-undo" aria-hidden="true"></i>Turn left</button>
       <button class="btn btn-default" ng-click="turnElement(modelOne.url, 90)"><i class="fa fa-repeat" aria-hidden="true"></i>Turn right</button>
     </div>
