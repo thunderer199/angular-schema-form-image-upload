@@ -62,8 +62,8 @@ angular.module('imageUrl').service('imageLoader', ['Upload', function (Upload) {
   }
 }]);
 
-angular.module('imageUrl').controller('imageUrlCtrl', ['$scope', 'imageLoader', 'Notification', "$uibModal",
-      function ($scope, imageLoader, Notification, $uibModal) {
+angular.module('imageUrl').controller('imageUrlCtrl', ['$scope', 'imageLoader', 'Notification', "$uibModal", "$http",
+      function ($scope, imageLoader, Notification, $uibModal, $http) {
   $scope.addImage = addImage;
   $scope.addModel = addModel;
   $scope.removeModel = removeModel;
