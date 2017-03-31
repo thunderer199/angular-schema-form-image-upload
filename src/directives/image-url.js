@@ -19,7 +19,11 @@ angular.module('imageUrl').controller('imageUrlCtrl', ['$scope', 'imageLoader', 
   $scope.uploadFiles = uploadFiles;
   $scope.moveElement = moveElement;
   $scope.showImageFullSize = showImageFullSize;
+  $scope.isLocalImgUrl = isLocalImgUrl;
+  $scope.turnElement = turnElement;
   $scope.isUploading = [];
+
+  var localUrlPath = "/ws/img/download/";
 
   if(!$scope.model) {
     $scope.model = {};
@@ -144,6 +148,27 @@ angular.module('imageUrl').controller('imageUrlCtrl', ['$scope', 'imageLoader', 
     }
     $scope.model.images.splice(index, 1);
     $scope.model.images.splice(index+directionValue, 0, tmpImage);
+  }
+
+  function isLocalImgUrl(url) {
+    return url.startsWith(localUrlPath);
+  }
+
+  function turnElement (link, angle) {
+    var id = link.slice(localUrlPath.length);
+    $http({
+      method: "GET",
+      url: "ws/img/rotate/" + id + "/" + angle
+    }).then(function successCallback(imageId) {
+      // this callback will be called asynchronously
+      // when the response is available
+      link = localUrlPath + imageId;
+    }, function errorCallback(response) {
+      // called asynchronously if an error occurs
+      // or server returns response with an error status.
+      Notification.error({title: 'Error',
+        message: "Something went wrong! The image couldn't be turned. Server message: " + response});
+    });
   }
 
   $scope.$watch('model.default.index', function() {

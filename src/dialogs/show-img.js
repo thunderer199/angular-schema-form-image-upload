@@ -5,7 +5,7 @@ angular.module('imageUrl')
     $scope.title = options["title"];
     $scope.url = options["url"];
     $scope.cancel = function() {
-      $uibModalInstance.dismiss("cancel");
+      $uibModalInstance.close();
     };
     $scope.download = function () {
       window.open($scope.url);
