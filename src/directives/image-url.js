@@ -162,8 +162,8 @@ angular.module('imageUrl').controller('imageUrlCtrl', ['$scope', 'imageLoader', 
     }).then(function successCallback(response) {
       // this callback will be called asynchronously
       // when the response is available
-      if(response && response.imageId) {
-        link = localUrlPath + response.imageId;
+      if(response && response.data && response.data.imageId) {
+        link = localUrlPath + response.data.imageId;
       } else {
         Notification.error({title: 'Error',
           message: "The response hasn't image id."});
