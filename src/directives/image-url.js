@@ -154,8 +154,8 @@ angular.module('imageUrl').controller('imageUrlCtrl', ['$scope', 'imageLoader', 
     return url.startsWith(localUrlPath);
   }
 
-  function turnElement (link, angle) {
-    var id = link.slice(localUrlPath.length);
+  function turnElement (model, angle) {
+    var id = model.url.slice(localUrlPath.length);
     $http({
       method: "GET",
       url: "ws/img/rotate/" + id + "/" + angle
@@ -163,7 +163,7 @@ angular.module('imageUrl').controller('imageUrlCtrl', ['$scope', 'imageLoader', 
       // this callback will be called asynchronously
       // when the response is available
       if(response && response.data && response.data.imageId) {
-        link = localUrlPath + response.data.imageId;
+        model.url = localUrlPath + response.data.imageId;
       } else {
         Notification.error({title: 'Error',
           message: "The response hasn't image id."});
