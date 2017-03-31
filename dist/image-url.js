@@ -212,10 +212,15 @@ angular.module('imageUrl').controller('imageUrlCtrl', ['$scope', 'imageLoader', 
     $http({
       method: "GET",
       url: "ws/img/rotate/" + id + "/" + angle
-    }).then(function successCallback(imageId) {
+    }).then(function successCallback(response) {
       // this callback will be called asynchronously
       // when the response is available
-      link = localUrlPath + imageId;
+      if(response && response.imageId) {
+        link = localUrlPath + response.imageId;
+      } else {
+        Notification.error({title: 'Error',
+          message: "The response hasn't image id."});
+      }
     }, function errorCallback(response) {
       // called asynchronously if an error occurs
       // or server returns response with an error status.
