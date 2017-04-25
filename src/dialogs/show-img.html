@@ -3,9 +3,17 @@
     <h3 class="modal-title">{{title}}</h3>
   </div>
   <div class="modal-body">
-    <img class="img-thumbnail" ng-src="{{url}}" alt=""/>
+    <div class="img-thumbnail" id="divContainer" style="height: 350px; overflow: scroll;">
+      <img id="imageView" ng-src="{{url}}" alt="" style="{{'height: '+ (imgHeight*currentScaleValue) + 'px;'}}"/>
+    </div>
   </div>
   <div class="modal-footer">
+    <button class="btn btn-default" ng-click="scalePlus()" ng-disabled="!(currentScaleValue < maxScaleValue)">
+      <span class="glyphicon glyphicon-zoom-in"></span>
+    </button>
+    <button class="btn btn-default" ng-click="scaleMinus()" ng-disabled="!(currentScaleValue > 1)">
+      <span class="glyphicon glyphicon-zoom-out"></span>
+    </button>
     <button class="btn btn-default" ng-click="download()">Download Image</button>
     <button class="btn btn-warning" ng-click="cancel()">Ok</button>
   </div>

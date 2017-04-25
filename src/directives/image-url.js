@@ -149,7 +149,7 @@ angular.module('imageUrl').controller('imageUrlCtrl', ['$scope', 'imageLoader', 
     $scope.model.images.splice(index, 1);
     $scope.model.images.splice(index+directionValue, 0, tmpImage);
   }
-
+  
   function isLocalImgUrl(url) {
     return url.startsWith(localUrlPath);
   }
